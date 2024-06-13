@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "4dff118b-ccd5-465e-9998-920d467f3fb7",
+		"name": "Sqlite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "14425599",
+		"_collection_link": "https://galactic-spaceship-765203.postman.co/workspace/Team-Workspace~2fec3479-4653-4303-8377-4a7cd107c5ac/collection/14425599-4dff118b-ccd5-465e-9998-920d467f3fb7?action=share&source=collection_link&creator=14425599"
+	},
+	"item": [
+		{
+			"name": "metric",
+			"item": [
+				{
+					"name": "PUT metric",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entityType\": \"MEMORY_USAGE\",\n    \"unit\": \"PLAIN\",\n    \"minVal\": 10,\n    \"maxVal\": 10000,\n    \"higherIsBetter\": true,\n    \"val\": 2000,\n    \"timestamp\": 20240305142500,\n    \"container\": {\n        \"name\": \"pantelis3\",\n        \"label\": \"client one\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}:29000/metrics/add"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE metric",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {   \n        \"entityType\": \"MEMORY_USAGE\",\n        \"higherIsBetter\": true,\n        \"val\": 36,\n        \"timestamp\": 20240219142500,\n        \"container\": {\n            \"name\": \"tdsf\",\n            \"label\": \"first container\"\n        }\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}:29000/metrics/delete?id=3",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "29000",
+							"path": [
+								"metrics",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:29000/metrics/get?type=CPU_USAGE&node=client",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "29000",
+							"path": [
+								"metrics",
+								"get"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "CPU_USAGE"
+								},
+								{
+									"key": "node",
+									"value": "client"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}:29000/metrics/getByEntityType?type=MEMORY_USAGE",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "29000",
+							"path": [
+								"metrics",
+								"getByEntityType"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "MEMORY_USAGE"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dht",
+			"item": [
+				{
+					"name": "init",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nodeName\": \"client1\",\n    \"currentNodes\": [\"server\", \"client1\", \"client\"],\n    \"dataMap\": {\n        \"CPU_USAGE\": [\"server\"],\n        \"MEMORY_USAGE\": [\"client\", \"client1\"]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}:29000/dht/init"
+					},
+					"response": []
+				},
+				{
+					"name": "sync",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nodeName\": \"client1\",\n    \"currentNodes\": [\"server\", \"client1\", \"client\"],\n    \"dataMap\": {\n        \"CPU_USAGE\": [\"server\"],\n        \"MEMORY_USAGE\": [\"client\", \"client1\"]\n    },\n    \"deletedTypes\": [\"GPU_USAGE\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}:29000/dht/sync"
+					},
+					"response": []
+				},
+				{
+					"name": "downNodes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"client2\"]",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": "{{HOST}}:29000/dht/down"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lifecheck",
+			"item": [
+				{
+					"name": "lifecheck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}:29000/lifecheck"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "container",
+			"item": [
+				{
+					"name": "GET all containers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}:29000/containers/get"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Container",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"source\",\n    \"label\": \"a container for kafka\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}:29000/containers/add"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pod",
+			"item": [
+				{
+					"name": "GET all pods",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}:29000/pods/get"
+					},
+					"response": []
+				},
+				{
+					"name": "Add pod",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uuid\": \"8f9dd6e7-18e7-4e18-8d9e-2c3c4bb6a97c\",\n    \"namespace\": \"sqlite\",\n    \"name\": \"server\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}:29000/pods/add"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "localhost"
+		},
+		{
+			"key": "LOCAL",
+			"value": "localhost",
+			"type": "string"
+		}
+	]
+}

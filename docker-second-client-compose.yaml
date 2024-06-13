@@ -1,0 +1,31 @@
+version: "3.2"
+
+services:
+  sqlite-second:
+    image: edge-sqlite-db:1.0.0
+    hostname: second
+    networks:
+      - sqlite
+    ports:
+      - 29002:29000
+    environment:
+      DISCOVERY: "server"
+      HOSTNAME: "second"
+      CLUSTER_HEAD: "true" #There should be only 1 cluster head that takes care of data placement. Default value is false.
+      PLACEMENT: "false" #Enable/disable data placement algorithms
+      JAVA_OPTS: "-Xms256m -Xmx256m" #Java heap size
+      SIZE: "512" #Size for total off-heap storage (1/2 for persistence and 1/2 for in-memory caches)
+    volumes:
+      - sqlite_databases:/mnt/databases
+
+networks:
+  sqlite:
+
+
+volumes:
+  sqlite_databases:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: C:\Users\30695\Desktop\thesis\sqlite
