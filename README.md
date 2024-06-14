@@ -13,3 +13,7 @@
 5) docker compose -f docker-compose.yml up
 6) docker compose -f docker-client-compose.yaml up
 7) docker compose -f docker-second-client-compose.yaml u
+
+## More Details 
+
+Μore details along with evaluation experiments can be found in the MSc dissertation (file: StorageFabricForEdgeDevices.pdf).
